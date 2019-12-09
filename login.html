@@ -1,0 +1,18 @@
+	<body>
+		<form class="col n3 m6 s10 login_form shadow">
+			<div class="logo margin-bottom-3x margin-top-3x">ChatApp</div>
+			<input class="col n10 margin-bottom-half margin-top" name="username" id="username" type="text" placeholder="Username">
+			<span class="error col n10 margin-auto textAlign-left" id="username_error"></span>
+			<input class="col n10 margin-bottom-half margin-top-half" name="password" id="password" type="password" placeholder="Password">
+			<span class="error col n10 margin-auto textAlign-left" id="password_error"></span>
+			<span class="error col n10 margin-auto textAlign-left" id="login_error"></span>
+			<button id="login-button" class="col n10 margin-bottom-half margin-top-half">Login</button>
+			<a class="register_link col n10" href="register.html">Don't have an account? Create One</a>
+		</form>
+	</body>
+	<!-- Javascript -->
+	<script type="text/javascript">
+		var a = new Async();
+		window.addEventListener("load", function() { login(); });
+	</script>
+</html>

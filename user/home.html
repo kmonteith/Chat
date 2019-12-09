@@ -1,0 +1,141 @@
+	<body>
+	<div class="container">
+		<div id="contacts_panel" class="contacts_panel">
+			<div id="chat_init_one" class="chat_init_one">
+				<div class="title_box">
+						<i id="contact_back_bottom" class="material-icons col n2">arrow_back_ios</i>
+						<h3 class="col n9 textAlign-left">New Chat</h3>
+				</div>
+				<div class="chat_user_search">
+					<div contenteditable="true" data-placeholder="Search Users or Chats" id="search_users_new_chat" class="divInput"></div>
+					<div class="selected_users" id="selected_users"></div>
+				</div><div class="user_holder" id="user_holder">
+				
+				</div>
+				<div class="contacts_panel_bottom">
+					<i id="new_chat_init" disabled class="circle_button disabled material-icons">arrow_forward</i>
+				</div>
+			</div>
+			<div id="chat_init_two" class="chat_init_two hidden">
+				<div class="filePicInput" id="picPreview"><i class="material-icons people" id="people">camera_alt</i><p class='newChatIconPrompt'>Add Group Icon</p><input id="filePicInput" type="file"></div>
+				<div contenteditable="true" tabindex="1" data-placeholder="Chat Name" id="chatName" class="chatName divInput"></div>
+				<div class="contacts_panel_bottom">
+					<i id="group_chat_init" disabled class="circle_button disabled material-icons">arrow_forward</i>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<div id="friend_panel" class="friend_panel">
+			<div id="friend_init_one" class="friend_init_one">
+				<div class="title_box">
+						<i id="friend_back_bottom" class="material-icons col n2">arrow_back_ios</i>
+						<h3 class="col n9 textAlign-left">Add Friends</h3>
+				</div>
+				<div class="chat_user_search">
+					<div contenteditable="true" data-placeholder="Search Phone Number or Email (Enter to search)" id="search_new_friends" class="divInput"></div>
+					<div class="selected_users" id="selected_users"></div>
+				</div><div class="friend_requests" id="friend_requests">			
+				</div><div class="user_holder" id="new_friend_holder">
+				
+				</div>
+			</div>
+		</div>
+			
+		<div id="settings_panel" class="settings_panel">
+			<div id="settings_init_one" class="settings_init_one">
+				<div class="title_box">
+						<i id="settings_back_button" class="material-icons col n2">arrow_back_ios</i>
+						<h3 class="col n9 textAlign-left">Settings</h3>
+				</div>
+				<div>
+					<ul class='settings_list'>
+						<li id="dark_mode"><i class="material-icons">brightness_3</i>Dark Mode</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="profile_panel" class="profile_panel">
+			<div id="profile_init_one" class="profile_init_one">
+				<div class="title_box">
+						<i id="profile_back_button" class="material-icons col n2">arrow_back_ios</i>
+						<h3 class="col n9 textAlign-left">Profile</h3>
+				</div>
+				<div>
+					<ul class='profile_list'>
+						<div class="profilePicInputHolder">
+							<div class="profilePicInput" style=''></div>
+							<div class="pictureHint"><i class="material-icons people" id="people">camera_alt</i><p class='newChatIconPrompt'>Change Profile Picture</p><input id="filePicInput" type="file"></div>
+							
+						</div>
+
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class=" col chats">
+			<div class="user_controls">
+				<div class="profile_image user_image float-left"></div>
+				<div class="user_controls_right float-right">
+					<div class='notify_ring'><i id="new_chat_button" class="material-icons">add_comment</i></div>
+					<div id="notifyRing" class='notify_ring'><i id="add_friends" class="material-icons">person_add</i></div>
+					<div class='notify_ring'><i class="material-icons" >all_inclusive</i></div>
+					<div class='notify_ring'><i class="material-icons" onclick="quickDropDown();">more_vert</i></div>
+					<div id="quick_dropdown" class="quick_dropdown hiddenSize">
+						<ul>
+							<li id="settings">Settings</li>
+							<li id="profile">Profile</li>
+							<li>Friends</li>
+							<li onclick="logout()">Log Out</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="chat_user_search">
+				<input placeholder="Search Users or Chats">
+			</div>
+			<div id="chat_holder" class="chats_holder">
+				
+			</div>
+		</div><div class="col chat_window_holder">
+			<div class="chat_window col n12" id="chat_window">
+				<h4 id="chat_window_no_chat" class="chat_window_no_chat">Start a chat?</h4>
+				
+			</div>
+			
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript">
+		var a = new Async();
+		var socket = io();
+		let setting = new settings();
+		
+		window.addEventListener("load", function() {
+			var chat_preview = document.getElementById("chat_holder");
+			getUserInfo( function(data) {
+				var profileImages = document.querySelectorAll(".profile_image");
+				var img = "<span>"+data['first_name'][0].toUpperCase()+"</span>";
+				if(data['profile_image'] != null) { img = "<div style='background-image: url(/images/"+data['profile_image']+");' class='friend_image'></div>"; }
+				for (var i = 0; i < profileImages.length; i++) { 
+					profileImages[i].innerHTML = img;
+				}
+			})
+			var chat_window = document.getElementById("chat_window");
+			let chats = new Chats(chat_window,chat_preview);
+			let freindsAdd = new addFriends();
+			let profile = new Profile();
+			setting.init();
+			chats.createChats();	
+			
+		});
+
+		
+	</script>
+</html>
